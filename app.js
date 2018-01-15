@@ -139,7 +139,7 @@ request.post({
     for (let i = 0; i < req.body.length - 1; i++) {
         names.push(req.body[i].engname.replace(';', ' ').replace(':', ' '))
     }
-    let a = 6
+    let a = 0
 
     function start(name, output) {
         if (name != undefined) {
