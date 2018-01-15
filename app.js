@@ -128,19 +128,10 @@ async function run(searched, output) {
         await browser.close()
     };
 };
-names = []
-request.post({
-    url: 'https://us-central1-website-8d475.cloudfunctions.net/getData',
-    json: true,
-    body: {
-        name: "anime"
-    }
-}, function (res, req) {
-    for (let i = 0; i < req.body.length - 1; i++) {
-        names.push(req.body[i].engname.replace(';', ' ').replace(':', ' '))
-    }
-    let a = 0
 
+names = ['Tengen Toppa Gurren Lagann'] // write there array of title names
+
+    let a = 0
     function start(name, output) {
         if (name != undefined) {
             run(name, function (res) {
@@ -154,14 +145,7 @@ request.post({
         }
     }
     start()
-})
 
 function pushData(dataToPush) {
-    request.post({
-        url: 'https://us-central1-website-8d475.cloudfunctions.net/pushAnimeData',
-        json: true,
-        body: dataToPush
-    }, function (res, req) {
-        console.log(req.body)
-    })
+    console.log(JSON.stringify(dataToPush))
 };
