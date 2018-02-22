@@ -42,7 +42,7 @@ async function run(searched, output) {
                 if (Number.parseInt(doc[i].getAttribute('id')) < id &&
                     name.search(document.querySelector('input[type="text"]').value.toLowerCase().split(' ').join('-')) != -1) {
                     id = doc[i].getAttribute('id')
-                    link = doc[i].querySelector('a').href
+                    link = doc[i].querySelector('a').href || false
                 }
             }
             return link
@@ -96,6 +96,7 @@ async function run(searched, output) {
         anime.cover = anitokyo.cover
     }
     CloseBrowser()
+    if (!anime.url.shikimori) return output(true)
     let str = anime.url.shikimori.slice(anime.url.shikimori.lastIndexOf('/') + 1, anime.url.shikimori.indexOf('-'))
     await request.get('https://shikimori.org/api/animes/' + str,
         function (req, res) {
