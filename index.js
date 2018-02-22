@@ -18,7 +18,7 @@ async function run(searched, output) {
         cover: ''
     }
     const browser = await puppeteer.launch({ 
-        headless: false,
+        headless: true,
         args: ['--no-sandbox', '--disable-setuid-sandbox']
     });
     const page = await browser.newPage()
@@ -97,7 +97,6 @@ async function run(searched, output) {
     }
     CloseBrowser()
     let str = anime.url.shikimori.slice(anime.url.shikimori.lastIndexOf('/') + 1, anime.url.shikimori.indexOf('-'))
-    console.log(str)
     await request.get('https://shikimori.org/api/animes/' + str,
         function (req, res) {
             res = JSON.parse(res.body)
