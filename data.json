@@ -1,0 +1,139 @@
+{
+    "id": 31163,
+    "name": "Dimension W",
+    "russian": "Измерение «W»",
+    "image": {
+        "original": "/system/animes/original/31163.jpg?1501250810",
+        "preview": "/system/animes/preview/31163.jpg?1501250810",
+        "x96": "/system/animes/x96/31163.jpg?1501250810",
+        "x48": "/system/animes/x48/31163.jpg?1501250810"
+    },
+    "url": "/animes/y31163-dimension-w",
+    "kind": "tv",
+    "status": "released",
+    "episodes": 12,
+    "episodes_aired": 12,
+    "aired_on": "2016-01-10",
+    "released_on": "2016-03-27",
+    "rating": "r",
+    "english": ["Dimension W"],
+    "japanese": ["Dimension W"],
+    "synonyms": [],
+    "duration": 24,
+    "score": "7.32",
+    "description": "В будущем мечта Николы Теслы о беспроводной передаче электричества осуществилась. Провода и батареи остались в прошлом, а люди начали получать электричество из так называемых «катушек». Однако со временем некоторые люди стали модифицировать свои «катушки» и использовать их как оружие.\r\n[character=105885]Кёма Мабучи[/character] — «охотник», который в обмен на эти незаконные «катушки» получает деньги и топливо для своего раритетного автомобиля, работающего на бензине.\r\nОднажды, как и всегда, он берётся за работу: ему поручают отобрать партию нелегальных «катушек». Перебив всех бандитов, он нехотя спасает [character=117873]девушку[/character], которая тут же отправляет его в нокаут с одной пощечины.",
+    "description_html": "\u003cdiv class=\"b-prgrph\"\u003eВ будущем мечта Николы Теслы о беспроводной передаче электричества осуществилась. Провода и батареи остались в прошлом, а люди начали получать электричество из так называемых «катушек». Однако со временем некоторые люди стали модифицировать свои «катушки» и использовать их как оружие.\u003c/div\u003e\u003cdiv class=\"b-prgrph\"\u003e\u003ca href=\"http://shikimori.org/characters/105885-kyouma-mabuchi\" title=\"Kyouma Mabuchi\" class=\"bubbled b-link\" data-tooltip_url=\"http://shikimori.org/characters/105885-kyouma-mabuchi/tooltip\"\u003eКёма Мабучи\u003c/a\u003e — «охотник», который в обмен на эти незаконные «катушки» получает деньги и топливо для своего раритетного автомобиля, работающего на бензине.\u003c/div\u003e\u003cdiv class=\"b-prgrph\"\u003eОднажды, как и всегда, он берётся за работу: ему поручают отобрать партию нелегальных «катушек». Перебив всех бандитов, он нехотя спасает \u003ca href=\"http://shikimori.org/characters/117873-mira-yurizaki\" title=\"Mira Yurizaki\" class=\"bubbled b-link\" data-tooltip_url=\"http://shikimori.org/characters/117873-mira-yurizaki/tooltip\"\u003eдевушку\u003c/a\u003e, которая тут же отправляет его в нокаут с одной пощечины.\u003c/div\u003e",
+    "description_source": null,
+    "favoured": false,
+    "anons": false,
+    "ongoing": false,
+    "thread_id": 178866,
+    "topic_id": 178866,
+    "myanimelist_id": 31163,
+    "rates_scores_stats": [{
+        "name": 10,
+        "value": 1177
+    }, {
+        "name": 9,
+        "value": 1242
+    }, {
+        "name": 8,
+        "value": 2350
+    }, {
+        "name": 7,
+        "value": 1688
+    }, {
+        "name": 6,
+        "value": 594
+    }, {
+        "name": 5,
+        "value": 200
+    }, {
+        "name": 4,
+        "value": 82
+    }, {
+        "name": 3,
+        "value": 30
+    }, {
+        "name": 2,
+        "value": 12
+    }, {
+        "name": 1,
+        "value": 19
+    }],
+    "rates_statuses_stats": [{
+        "name": "Просмотрено",
+        "value": 12059
+    }, {
+        "name": "Брошено",
+        "value": 682
+    }, {
+        "name": "Отложено",
+        "value": 471
+    }, {
+        "name": "Запланировано",
+        "value": 6876
+    }, {
+        "name": "Пересматриваю",
+        "value": 39
+    }, {
+        "name": "Смотрю",
+        "value": 1186
+    }],
+    "updated_at": "2018-01-09T14:04:29.882+03:00",
+    "next_episode_at": null,
+    "genres": [{
+        "id": 1,
+        "name": "Action",
+        "russian": "Экшен",
+        "kind": "anime"
+    }, {
+        "id": 24,
+        "name": "Sci-Fi",
+        "russian": "Фантастика",
+        "kind": "anime"
+    }, {
+        "id": 42,
+        "name": "Seinen",
+        "russian": "Сейнен",
+        "kind": "anime"
+    }],
+    "studios": [{
+        "id": 1109,
+        "name": "Orange",
+        "filtered_name": "Orange",
+        "real": false,
+        "image": null
+    }, {
+        "id": 1127,
+        "name": "Studio 3Hz",
+        "filtered_name": "3Hz",
+        "real": true,
+        "image": "/system/studios/original/1127.?1451206542"
+    }],
+    "videos": [{
+        "id": 10609,
+        "url": "http://vk.com/video152049662_172140994",
+        "image_url": "http://cs622216.vk.me/v622216662/1f2cc/wnZPrGBJTpE.jpg",
+        "player_url": "http://vk.com/video_ext.php?oid=152049662\u0026id=172140994\u0026hash=cd70d61ba95208a8",
+        "name": "",
+        "kind": "pv",
+        "hosting": "vk"
+    }, {
+        "id": 11143,
+        "url": "http://youtu.be/H66fgFIgGLg",
+        "image_url": "http://img.youtube.com/vi/H66fgFIgGLg/mqdefault.jpg",
+        "player_url": "http://youtube.com/embed/H66fgFIgGLg",
+        "name": "",
+        "kind": "pv",
+        "hosting": "youtube"
+    }],
+    "screenshots": [{
+        "original": "/system/screenshots/original/ad5d83e3c8cc60d25579d081b90d861e56cdd22c.jpg?1452545131",
+        "preview": "/system/screenshots/x332/ad5d83e3c8cc60d25579d081b90d861e56cdd22c.jpg?1452545131"
+    }, {
+        "original": "/system/screenshots/original/f2426e8062e866496e8bdd684e28e4c6cc9a8da7.jpg?1452545132",
+        "preview": "/system/screenshots/x332/f2426e8062e866496e8bdd684e28e4c6cc9a8da7.jpg?1452545132"
+    }],
+    "user_rate": null
+}
