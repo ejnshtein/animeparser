@@ -96,8 +96,8 @@ async function run(searched, output) {
         anime.cover = anitokyo.cover
     }
     CloseBrowser()
-    console.log(anime)
     let str = anime.url.shikimori.slice(anime.url.shikimori.lastIndexOf('/') + 1, anime.url.shikimori.indexOf('-'))
+    console.log(str)
     await request.get('https://shikimori.org/api/animes/' + str,
         function (req, res) {
             res = JSON.parse(res.body)
@@ -113,14 +113,14 @@ async function run(searched, output) {
                 anime.genres = anime.genres + res.genres[i].russian + ' '
             }
             imgur.uploadUrl(anime.cover)
-                .then(function (json) {
-                    anime.cover = json.data.link
-                    arrr.push(anime);
-                    output(false,anime)
-                })
-                .catch(function (err) {
-                    console.error(err.message);
-                });
+            .then(function (json) {
+                anime.cover = json.data.link
+                arrr.push(anime);
+                output(false,anime)
+            })
+            .catch(function (err) {
+                console.error(err.message);
+            });
         })
     async function CloseBrowser() {
         await browser.close()
@@ -152,3 +152,6 @@ exports.getAllAnimeData = function(animeName, output){
         output(data)
     })
 }
+run('Ao no exorcist',(err,data)=>{
+    console.log(err,data)
+})
