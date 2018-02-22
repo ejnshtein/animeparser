@@ -96,7 +96,6 @@ async function run(searched, output) {
         anime.cover = anitokyo.cover
     }
     CloseBrowser()
-    if (!anime.url.shikimori) return output(true)
     let str = anime.url.shikimori.slice(anime.url.shikimori.lastIndexOf('/') + 1, anime.url.shikimori.indexOf('-'))
     await request.get('https://shikimori.org/api/animes/' + str,
         function (req, res) {
