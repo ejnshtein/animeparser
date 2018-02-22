@@ -146,7 +146,8 @@ async function run(searched, output) {
 //     console.log(JSON.stringify(dataToPush))
 // };
 exports.getAllAnimeData = function(animeName, output){
-    run(animeName, (data) => {
+    run(animeName, (err,data) => {
+        if (err) return output('Error!')
         output(data)
     })
 }
