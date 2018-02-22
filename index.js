@@ -42,7 +42,7 @@ async function run(searched, output) {
                 if (Number.parseInt(doc[i].getAttribute('id')) < id &&
                     name.search(document.querySelector('input[type="text"]').value.toLowerCase().split(' ').join('-')) != -1) {
                     id = doc[i].getAttribute('id')
-                    link = doc[i].querySelector('a').href || false
+                    link = doc[i].querySelector('a').getAttribute('href') || false
                 }
             }
             return link
