@@ -1,9 +1,10 @@
-const puppeteer = require('puppeteer')
-const request = require('request')
-const imgur = require('imgur')
+const puppeteer = require('puppeteer'),
+    request = require('request'),
+    imgur = require('imgur'),
+    config = require('./config.json')
 let arrr = []
 let names = []
-imgur.setClientId('55547fc9799235a');
+imgur.setClientId(config.imgurid);
 async function run(searched, output) {
     let anime = {
         engname: '',
