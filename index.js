@@ -152,6 +152,3 @@ exports.getAllAnimeData = function(animeName, output){
         output(data)
     })
 }
-run('Ao no exorcist',(err,data)=>{
-    console.log(err,data)
-})
