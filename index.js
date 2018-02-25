@@ -108,7 +108,6 @@ async function run(searched, output) {
     await request('https://shikimori.org/api/animes/' + str)
         .then(res => res.json())
         .then(json => {
-            console.log(json)
             let res = json
             anime.engname = res.name
             anime.fullname = res.name + ' / ' + res.russian
@@ -121,6 +120,7 @@ async function run(searched, output) {
             for (let i = 0; i < res.genres.length; i++) {
                 anime.genres = anime.genres + res.genres[i].russian + ' '
             }
+            console.log(anime)
             imgur.uploadUrl(anime.cover)
             .then(function (json) {
                 anime.cover = json.data.link
