@@ -161,6 +161,3 @@ exports.getAllAnimeData = function(animeName, output){
         output(data)
     })
 }
-run('Spice and Wolf',(res)=>{
-    console.log(JSON.stringify(res))
-})
