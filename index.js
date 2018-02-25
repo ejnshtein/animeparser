@@ -122,11 +122,9 @@ async function run(searched, output) {
             }
             imgur.uploadUrl(anime.cover)
             .then(function (re) {
-                console.log(anime,re)
                 anime.cover = re.data.link
                 output(false,anime)
-            })
-            .catch((e) => {
+            }).catch((e) => {
                 output(true)
             });
         }).catch((e) => {
@@ -158,7 +156,7 @@ async function run(searched, output) {
 // };
 exports.getAllAnimeData = function(animeName, output){
     run(animeName, (err,data) => {
-        if (err) return output('Error!')
+        if (err) return output(true)
         output(false,data)
     })
 }
