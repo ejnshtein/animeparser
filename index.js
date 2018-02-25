@@ -158,6 +158,6 @@ async function run(searched, output) {
 exports.getAllAnimeData = function(animeName, output){
     run(animeName, (err,data) => {
         if (err) return output('Error!')
-        output(data)
+        output(false,data)
     })
 }
