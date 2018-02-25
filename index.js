@@ -159,7 +159,6 @@ async function run(searched, output) {
 exports.getAllAnimeData = function(animeName, output){
     run(animeName, (err,data) => {
         if (err) return output(true)
-        console.log(data)
-        output(false,data)
+        output(false, data)
     })
 }
