@@ -103,7 +103,7 @@ async function run(searched, output) {
         anime.cover = anitokyo.cover
         anime.url.anitokyo = anitokyo.link
     }
-    CloseBrowser()
+    await CloseBrowser()
     let str = anime.url.shikimori.slice(anime.url.shikimori.lastIndexOf('/') + 1, anime.url.shikimori.indexOf('-'))
     await request('https://shikimori.org/api/animes/' + str)
         .then(res => res.json())
@@ -159,6 +159,7 @@ async function run(searched, output) {
 exports.getAllAnimeData = function(animeName, output){
     run(animeName, (err,data) => {
         if (err) return output(true)
+        console.log(data)
         output(false,data)
     })
 }
