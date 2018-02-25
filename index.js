@@ -33,6 +33,7 @@ async function run(searched, output) {
         return output(true)
     };
     await page.waitForSelector('body')
+    await console.log('shiki body')
     anime.url.shikimori = await page.evaluate(() => {
         if (document.querySelectorAll('.b-db_entry')[0] == undefined) {
             let doc = document.querySelectorAll('.cc-entries > article')
@@ -66,6 +67,7 @@ async function run(searched, output) {
     await page.type('#story', searched)
     await page.click('input[value="Поиск"]')
     await page.waitForSelector('.content')
+    await console.log('tokyo body')
     let anitokyo = await page.evaluate(() => {
         if (document.querySelectorAll('.story').length == 1) {
             return {
@@ -104,6 +106,7 @@ async function run(searched, output) {
         anime.url.anitokyo = anitokyo.link
     }
     CloseBrowser()
+    await console.log('shiki api')
     let str = anime.url.shikimori.slice(anime.url.shikimori.lastIndexOf('/') + 1, anime.url.shikimori.indexOf('-'))
     await request.get('https://shikimori.org/api/animes/' + str,
         function (req, res) {
@@ -126,6 +129,7 @@ async function run(searched, output) {
                 output(false,anime)
             })
             .catch(function (err) {
+                output(true)
                 console.error(err.message);
             });
         })
