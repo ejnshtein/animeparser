@@ -50,6 +50,8 @@ async function run(searched, output) {
         } else {
             return "https:" + document.querySelectorAll('meta[itemprop="url"]')[0].getAttribute('content')
         }
+    }).catch((e)=>{
+        return output(true)
     })
     try {
         await page.goto('http://anitokyo.tv/index.php?do=multisearch', {
@@ -75,6 +77,8 @@ async function run(searched, output) {
             link: document.querySelector('.story a').href,
             cover: ''
         }
+    }).catch((e)=>{
+        return output(true)
     })
     if (anitokyo.cover == '') {
         try {
@@ -82,19 +86,22 @@ async function run(searched, output) {
                 timeout: 10000,
                 waitUntil: 'domcontentloaded',
             })
-        } catch (e) {z
+        } catch (e) {
+            return output(true)
         };
         anitokyo = await page.evaluate(() => {
             return {
                 link: document.querySelector('#dle-content > article > div.section > div > div > ul > li:nth-child(1) > a').href,
                 cover: document.querySelector('#dle-content > article > div.story_c > div.poster > span > a').href
             }
+        }).catch((e)=>{
+            return output(true)
         })
         anime.cover = anitokyo.cover
         anime.url.anitokyo = anitokyo.link
     } else {
-        anime.url.anitokyo = anitokyo.link
         anime.cover = anitokyo.cover
+        anime.url.anitokyo = anitokyo.link
     }
     CloseBrowser()
     let str = anime.url.shikimori.slice(anime.url.shikimori.lastIndexOf('/') + 1, anime.url.shikimori.indexOf('-'))
@@ -121,6 +128,8 @@ async function run(searched, output) {
             .catch(function (err) {
                 console.error(err.message);
             });
+        }).catch((e)=>{
+            return output(true)
         })
     async function CloseBrowser() {
         await browser.close()
@@ -152,3 +161,6 @@ exports.getAllAnimeData = function(animeName, output){
         output(data)
     })
 }
+run('Spice and Wolf',(res)=>{
+    console.log(JSON.stringify(res))
+})
