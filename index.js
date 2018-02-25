@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer'),
-    request = require('request'),
+    request = require('node-fetch'),
     imgur = require('imgur'),
     config = require('./config.json')
 let arrr = []
@@ -108,9 +108,10 @@ async function run(searched, output) {
     CloseBrowser()
     await console.log('shiki api')
     let str = anime.url.shikimori.slice(anime.url.shikimori.lastIndexOf('/') + 1, anime.url.shikimori.indexOf('-'))
-    await request.get('https://shikimori.org/api/animes/' + str,
-        function (req, res) {
-            res = JSON.parse(res.body)
+    await request('https://shikimori.org/api/animes/' + str)
+        .then(res => res.json())
+        .then(json => {
+            res = json
             anime.engname = res.name
             anime.fullname = res.name + ' / ' + res.russian
             for (let i = 0; i < res.japanese.length; i++) {
@@ -128,11 +129,12 @@ async function run(searched, output) {
                 arrr.push(anime);
                 output(false,anime)
             })
-            .catch(function (err) {
+            .catch((e) => {
                 output(true)
-                console.error(err.message);
             });
-        })
+        }).catch((e) => {
+            output(true)
+        });
     async function CloseBrowser() {
         await browser.close()
     };
