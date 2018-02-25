@@ -120,11 +120,10 @@ async function run(searched, output) {
             for (let i = 0; i < res.genres.length; i++) {
                 anime.genres = anime.genres + res.genres[i].russian + ' '
             }
-            console.log(anime)
             imgur.uploadUrl(anime.cover)
-            .then(function (json) {
-                anime.cover = json.data.link
-                arrr.push(anime);
+            .then(function (re) {
+                console.log(anime,re)
+                anime.cover = re.data.link
                 output(false,anime)
             })
             .catch((e) => {
