@@ -108,6 +108,7 @@ async function run(searched, output) {
     CloseBrowser()
     await console.log('shiki api')
     let str = anime.url.shikimori.slice(anime.url.shikimori.lastIndexOf('/') + 1, anime.url.shikimori.indexOf('-'))
+    await console.log(str)
     await request('https://shikimori.org/api/animes/' + str)
         .then(res => res.json())
         .then(json => {
