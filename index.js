@@ -128,8 +128,6 @@ async function run(searched, output) {
             .catch(function (err) {
                 console.error(err.message);
             });
-        }).catch((e)=>{
-            return output(true)
         })
     async function CloseBrowser() {
         await browser.close()
