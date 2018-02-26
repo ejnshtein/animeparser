@@ -59,6 +59,7 @@ async function run(searched, output) {
             waitUntil: 'domcontentloaded',
         })
     } catch (err) {
+        console.log('shiki',anime)
         await CloseBrowser()
         return output(true)
     };
@@ -78,6 +79,7 @@ async function run(searched, output) {
             cover: ''
         }
     }).catch((e)=>{
+        console.log('tokyo1',anime)
         return output(true)
     })
     if (anitokyo.cover == '') {
@@ -95,6 +97,7 @@ async function run(searched, output) {
                 cover: document.querySelector('#dle-content > article > div.story_c > div.poster > span > a').href
             }
         }).catch((e)=>{
+            console.log('tokyo2',anime)
             return output(true)
         })
         anime.cover = anitokyo.cover
@@ -126,10 +129,12 @@ async function run(searched, output) {
                 anime.cover = re.data.link
                 output(false,anime)
             }).catch((e) => {
+                console.log('img1',anime)
                 output(true)
             });
         })
         .catch((e) => {
+            console.log('shikiapi',anime)
             output(true)
         });
     async function CloseBrowser() {
