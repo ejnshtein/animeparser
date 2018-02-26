@@ -30,7 +30,7 @@ async function run(searched, output) {
         })
     } catch (err) {
         await CloseBrowser()
-        return output(true, 'Shikimori error')
+        return output(true, 'Shikimori1 error')
     };
     await page.waitForSelector('body')
     anime.url.shikimori = await page.evaluate(() => {
@@ -58,7 +58,7 @@ async function run(searched, output) {
         })
     } catch (e) {
         await CloseBrowser()
-        return output(true, 'Anitokyo error')
+        return output(true, 'Anitokyo1 error')
     };
     await page.click('#story')
     await page.type('#story', searched)
@@ -84,7 +84,7 @@ async function run(searched, output) {
             })
         } catch (e) {
             await CloseBrowser()
-            return output(true, 'Anitokyo error')
+            return output(true, 'Anitokyo2 error')
         }
         anitokyo = await page.evaluate(() => {
             return {
@@ -123,7 +123,7 @@ async function run(searched, output) {
             });
         })
         .catch((e) => {
-            return output(true, 'Shikimori API error')
+            return output(true, 'Shikimori1 API error')
         });
     async function CloseBrowser() {
         await browser.close()
