@@ -33,29 +33,24 @@ async function run(searched, output) {
         return output(true, 'Shikimori error')
     };
     await page.waitForSelector('body')
-    try{
-        anime.url.shikimori = await page.evaluate(() => {
-            if (document.querySelectorAll('.b-db_entry')[0] == undefined) {
-                let doc = document.querySelectorAll('.cc-entries > article')
-                let id = Number.parseInt(doc[0].getAttribute('id'))
-                let link = doc[0].querySelector('a').href
-                for (let i = 0; i < doc.length; i++) {
-                    let name = doc[i].querySelector('a').href.slice(doc[i].querySelector('a').href.indexOf('-') + 1)
-                    if (Number.parseInt(doc[i].getAttribute('id')) < id &&
-                        name.search(document.querySelector('input[type="text"]').value.toLowerCase().split(' ').join('-')) != -1) {
-                        id = doc[i].getAttribute('id')
-                        link = doc[i].querySelector('a').getAttribute('href') || false
-                    }
+    anime.url.shikimori = await page.evaluate(() => {
+        if (document.querySelectorAll('.b-db_entry')[0] == undefined) {
+            let doc = document.querySelectorAll('.cc-entries > article')
+            let id = Number.parseInt(doc[0].getAttribute('id'))
+            let link = doc[0].querySelector('a').href
+            for (let i = 0; i < doc.length; i++) {
+                let name = doc[i].querySelector('a').href.slice(doc[i].querySelector('a').href.indexOf('-') + 1)
+                if (Number.parseInt(doc[i].getAttribute('id')) < id &&
+                    name.search(document.querySelector('input[type="text"]').value.toLowerCase().split(' ').join('-')) != -1) {
+                    id = doc[i].getAttribute('id')
+                    link = doc[i].querySelector('a').getAttribute('href') || false
                 }
-                return link
-            } else {
-                return "https:" + document.querySelectorAll('meta[itemprop="url"]')[0].getAttribute('content')
             }
-        })
-    } catch (e){
-        await CloseBrowser()
-        return output(true, 'Shikimori error')
-    }
+            return link
+        } else {
+            return "https:" + document.querySelectorAll('meta[itemprop="url"]')[0].getAttribute('content')
+        }
+    })
     try {
         await page.goto('http://anitokyo.tv/index.php?do=multisearch', {
             timeout: 10000,
@@ -69,23 +64,18 @@ async function run(searched, output) {
     await page.type('#story', searched)
     await page.click('input[value="Поиск"]')
     await page.waitForSelector('.content')
-    try {
-        let anitokyo = await page.evaluate(() => {
-            if (document.querySelectorAll('.story').length == 1) {
-                return {
-                    link: document.querySelector('.story a').href,
-                    cover: document.querySelector('.poster-img a').href
-                }
-            }
+    let anitokyo = await page.evaluate(() => {
+        if (document.querySelectorAll('.story').length == 1) {
             return {
                 link: document.querySelector('.story a').href,
-                cover: ''
+                cover: document.querySelector('.poster-img a').href
             }
-        })
-    } catch (e){
-        await CloseBrowser()
-        return output(true, 'Anitokyo error')
-    }
+        }
+        return {
+            link: document.querySelector('.story a').href,
+            cover: ''
+        }
+    })
     if (anitokyo.cover == '') {
         try {
             await page.goto(anitokyo.link, {
@@ -96,17 +86,12 @@ async function run(searched, output) {
             await CloseBrowser()
             return output(true, 'Anitokyo error')
         }
-        try {
-            anitokyo = await page.evaluate(() => {
-                return {
-                    link: document.querySelector('#dle-content > article > div.section > div > div > ul > li:nth-child(1) > a').href,
-                    cover: document.querySelector('#dle-content > article > div.story_c > div.poster > span > a').href
-                }
-            }) 
-        } catch (e){
-            await CloseBrowser()
-            return output(true, 'Anitokyo error')
-        }
+        anitokyo = await page.evaluate(() => {
+            return {
+                link: document.querySelector('#dle-content > article > div.section > div > div > ul > li:nth-child(1) > a').href,
+                cover: document.querySelector('#dle-content > article > div.story_c > div.poster > span > a').href
+            }
+        }) 
         anime.cover = anitokyo.cover
         anime.url.anitokyo = anitokyo.link
     } else {
