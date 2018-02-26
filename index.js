@@ -21,17 +21,15 @@ async function run(searched, output) {
     const browser = await puppeteer.launch({ 
         headless: true,
         args: ['--no-sandbox', '--disable-setuid-sandbox']
-    });
+    })
     const page = await browser.newPage()
-    try {
-        await page.goto('https://shikimori.org/animes?search=' + searched, {
-            timeout: 10000,
-            waitUntil: 'domcontentloaded',
-        })
-    } catch (err) {
+    await page.goto('https://shikimori.org/animes?search=' + searched, {
+        timeout: 10000,
+        waitUntil: 'domcontentloaded',
+    }).catch(e => {
         await CloseBrowser()
-        return output(true)
-    };
+        return output(true, 'Shikimori error')
+    })
     await page.waitForSelector('body')
     anime.url.shikimori = await page.evaluate(() => {
         if (document.querySelectorAll('.b-db_entry')[0] == undefined) {
@@ -51,18 +49,16 @@ async function run(searched, output) {
             return "https:" + document.querySelectorAll('meta[itemprop="url"]')[0].getAttribute('content')
         }
     }).catch((e)=>{
-        return output(true)
-    })
-    try {
-        await page.goto('http://anitokyo.tv/index.php?do=multisearch', {
-            timeout: 10000,
-            waitUntil: 'domcontentloaded',
-        })
-    } catch (err) {
-        console.log('shiki',anime)
         await CloseBrowser()
-        return output(true)
-    };
+        return output(true, 'Shikimori error')
+    })
+    await page.goto('http://anitokyo.tv/index.php?do=multisearch', {
+        timeout: 10000,
+        waitUntil: 'domcontentloaded',
+    }).catch(e => {
+        await CloseBrowser()
+        return output(true, 'Anitokyo error')
+    })
     await page.click('#story')
     await page.type('#story', searched)
     await page.click('input[value="Поиск"]')
@@ -79,26 +75,25 @@ async function run(searched, output) {
             cover: ''
         }
     }).catch((e)=>{
-        console.log('tokyo1',anime)
-        return output(true)
+        await CloseBrowser()
+        return output(true, 'Anitokyo error')
     })
     if (anitokyo.cover == '') {
-        try {
-            await page.goto(anitokyo.link, {
-                timeout: 10000,
-                waitUntil: 'domcontentloaded',
-            })
-        } catch (e) {
-            return output(true)
-        };
+        await page.goto(anitokyo.link, {
+            timeout: 10000,
+            waitUntil: 'domcontentloaded',
+        }).catch(e => {
+            await CloseBrowser()
+            return output(true, 'Anitokyo error')
+        })
         anitokyo = await page.evaluate(() => {
             return {
                 link: document.querySelector('#dle-content > article > div.section > div > div > ul > li:nth-child(1) > a').href,
                 cover: document.querySelector('#dle-content > article > div.story_c > div.poster > span > a').href
             }
         }).catch((e)=>{
-            console.log('tokyo2',anime)
-            return output(true)
+            await CloseBrowser()
+            return output(true, 'Anitokyo error')
         })
         anime.cover = anitokyo.cover
         anime.url.anitokyo = anitokyo.link
@@ -131,8 +126,7 @@ async function run(searched, output) {
             });
         })
         .catch((e) => {
-            console.log('shikiapi',anime)
-            output(true)
+            return output(true, 'Shikimori API error')
         });
     async function CloseBrowser() {
         await browser.close()
