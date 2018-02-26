@@ -127,10 +127,7 @@ async function run(searched, output) {
             imgur.uploadUrl(anime.cover)
             .then((re) => {
                 anime.cover = re.data.link
-                output(false,anime)
-            }).catch((e) => {
-                console.log('img1',anime)
-                output(true)
+                return output(false, anime)
             });
         })
         .catch((e) => {
