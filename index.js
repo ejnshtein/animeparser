@@ -21,80 +21,92 @@ async function run(searched, output) {
     const browser = await puppeteer.launch({ 
         headless: true,
         args: ['--no-sandbox', '--disable-setuid-sandbox']
-    })
+    });
     const page = await browser.newPage()
-    await page.goto('https://shikimori.org/animes?search=' + searched, {
-        timeout: 10000,
-        waitUntil: 'domcontentloaded',
-    }).catch(e => {
+    try {
+        await page.goto('https://shikimori.org/animes?search=' + searched, {
+            timeout: 10000,
+            waitUntil: 'domcontentloaded',
+        })
+    } catch (err) {
         await CloseBrowser()
         return output(true, 'Shikimori error')
-    })
+    };
     await page.waitForSelector('body')
-    anime.url.shikimori = await page.evaluate(() => {
-        if (document.querySelectorAll('.b-db_entry')[0] == undefined) {
-            let doc = document.querySelectorAll('.cc-entries > article')
-            let id = Number.parseInt(doc[0].getAttribute('id'))
-            let link = doc[0].querySelector('a').href
-            for (let i = 0; i < doc.length; i++) {
-                let name = doc[i].querySelector('a').href.slice(doc[i].querySelector('a').href.indexOf('-') + 1)
-                if (Number.parseInt(doc[i].getAttribute('id')) < id &&
-                    name.search(document.querySelector('input[type="text"]').value.toLowerCase().split(' ').join('-')) != -1) {
-                    id = doc[i].getAttribute('id')
-                    link = doc[i].querySelector('a').getAttribute('href') || false
+    try{
+        anime.url.shikimori = await page.evaluate(() => {
+            if (document.querySelectorAll('.b-db_entry')[0] == undefined) {
+                let doc = document.querySelectorAll('.cc-entries > article')
+                let id = Number.parseInt(doc[0].getAttribute('id'))
+                let link = doc[0].querySelector('a').href
+                for (let i = 0; i < doc.length; i++) {
+                    let name = doc[i].querySelector('a').href.slice(doc[i].querySelector('a').href.indexOf('-') + 1)
+                    if (Number.parseInt(doc[i].getAttribute('id')) < id &&
+                        name.search(document.querySelector('input[type="text"]').value.toLowerCase().split(' ').join('-')) != -1) {
+                        id = doc[i].getAttribute('id')
+                        link = doc[i].querySelector('a').getAttribute('href') || false
+                    }
                 }
+                return link
+            } else {
+                return "https:" + document.querySelectorAll('meta[itemprop="url"]')[0].getAttribute('content')
             }
-            return link
-        } else {
-            return "https:" + document.querySelectorAll('meta[itemprop="url"]')[0].getAttribute('content')
-        }
-    }).catch((e)=>{
+        })
+    } catch (e){
         await CloseBrowser()
         return output(true, 'Shikimori error')
-    })
-    await page.goto('http://anitokyo.tv/index.php?do=multisearch', {
-        timeout: 10000,
-        waitUntil: 'domcontentloaded',
-    }).catch(e => {
+    }
+    try {
+        await page.goto('http://anitokyo.tv/index.php?do=multisearch', {
+            timeout: 10000,
+            waitUntil: 'domcontentloaded',
+        })
+    } catch (e) {
         await CloseBrowser()
         return output(true, 'Anitokyo error')
-    })
+    };
     await page.click('#story')
     await page.type('#story', searched)
     await page.click('input[value="Поиск"]')
     await page.waitForSelector('.content')
-    let anitokyo = await page.evaluate(() => {
-        if (document.querySelectorAll('.story').length == 1) {
+    try {
+        let anitokyo = await page.evaluate(() => {
+            if (document.querySelectorAll('.story').length == 1) {
+                return {
+                    link: document.querySelector('.story a').href,
+                    cover: document.querySelector('.poster-img a').href
+                }
+            }
             return {
                 link: document.querySelector('.story a').href,
-                cover: document.querySelector('.poster-img a').href
+                cover: ''
             }
-        }
-        return {
-            link: document.querySelector('.story a').href,
-            cover: ''
-        }
-    }).catch((e)=>{
+        })
+    } catch (e){
         await CloseBrowser()
         return output(true, 'Anitokyo error')
-    })
+    }
     if (anitokyo.cover == '') {
-        await page.goto(anitokyo.link, {
-            timeout: 10000,
-            waitUntil: 'domcontentloaded',
-        }).catch(e => {
+        try {
+            await page.goto(anitokyo.link, {
+                timeout: 10000,
+                waitUntil: 'domcontentloaded',
+            })
+        } catch (e) {
             await CloseBrowser()
             return output(true, 'Anitokyo error')
-        })
-        anitokyo = await page.evaluate(() => {
-            return {
-                link: document.querySelector('#dle-content > article > div.section > div > div > ul > li:nth-child(1) > a').href,
-                cover: document.querySelector('#dle-content > article > div.story_c > div.poster > span > a').href
-            }
-        }).catch((e)=>{
+        }
+        try {
+            anitokyo = await page.evaluate(() => {
+                return {
+                    link: document.querySelector('#dle-content > article > div.section > div > div > ul > li:nth-child(1) > a').href,
+                    cover: document.querySelector('#dle-content > article > div.story_c > div.poster > span > a').href
+                }
+            }) 
+        } catch (e){
             await CloseBrowser()
             return output(true, 'Anitokyo error')
-        })
+        }
         anime.cover = anitokyo.cover
         anime.url.anitokyo = anitokyo.link
     } else {
