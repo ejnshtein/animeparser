@@ -18,7 +18,10 @@ async function run(searched, output) {
         },
         cover: ''
     }
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({ 
+        headless: true,
+        args: ['--no-sandbox', '--disable-setuid-sandbox']
+    });
     const page = await browser.newPage()
     try {
         await page.goto('https://shikimori.org/animes?search=' + searched, {
