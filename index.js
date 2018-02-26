@@ -18,10 +18,7 @@ async function run(searched, output) {
         },
         cover: ''
     }
-    const browser = await puppeteer.launch({ 
-        headless: true,
-        args: ['--no-sandbox', '--disable-setuid-sandbox']
-    });
+    const browser = await puppeteer.launch();
     const page = await browser.newPage()
     try {
         await page.goto('https://shikimori.org/animes?search=' + searched, {
@@ -159,6 +156,6 @@ async function run(searched, output) {
 exports.getAllAnimeData = function(animeName, output){
     run(animeName, (err,data) => {
         if (err) return output(true)
-        output(false, data)
+        return output(false, data)
     })
 }
